@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarsInfoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="CarsInfoModelStoreContainer">
+    <EntitySet Name="Brand" EntityType="CarsInfoModel.Store.Brand" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Car" EntityType="CarsInfoModel.Store.Car" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Car_Brand" Association="CarsInfoModel.Store.FK_Car_Brand">
+      <End Role="Brand" EntitySet="Brand" />
+      <End Role="Car" EntitySet="Car" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="BrandId" />
+    </Key>
+    <Property Name="BrandId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BrandName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Car">
+    <Key>
+      <PropertyRef Name="CarId" />
+    </Key>
+    <Property Name="CarId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BrandId" Type="int" />
+    <Property Name="Model" Type="varchar" MaxLength="50" />
+    <Property Name="Costs" Type="int" />
+  </EntityType>
+  <Association Name="FK_Car_Brand">
+    <End Role="Brand" Type="CarsInfoModel.Store.Brand" Multiplicity="0..1" />
+    <End Role="Car" Type="CarsInfoModel.Store.Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="BrandId" />
+      </Principal>
+      <Dependent Role="Car">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

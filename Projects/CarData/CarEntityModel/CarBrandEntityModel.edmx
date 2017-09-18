@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CarsInfoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="CarsInfoModelStoreContainer">
+          <EntitySet Name="Brand" EntityType="CarsInfoModel.Store.Brand" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Car" EntityType="CarsInfoModel.Store.Car" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Car_Brand" Association="CarsInfoModel.Store.FK_Car_Brand">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="BrandId" />
+          </Key>
+          <Property Name="BrandId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BrandName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarId" />
+          </Key>
+          <Property Name="CarId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BrandId" Type="int" />
+          <Property Name="Model" Type="varchar" MaxLength="50" />
+          <Property Name="Costs" Type="int" />
+        </EntityType>
+        <Association Name="FK_Car_Brand">
+          <End Role="Brand" Type="CarsInfoModel.Store.Brand" Multiplicity="0..1" />
+          <End Role="Car" Type="CarsInfoModel.Store.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="BrandId" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarsInfoModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="CarsInfoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brands" EntityType="CarsInfoModel.Brand" />
+          <EntitySet Name="Cars" EntityType="CarsInfoModel.Car" />
+          <AssociationSet Name="FK_Car_Brand" Association="CarsInfoModel.FK_Car_Brand">
+            <End Role="Brand" EntitySet="Brands" />
+            <End Role="Car" EntitySet="Cars" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="BrandId" />
+          </Key>
+          <Property Name="BrandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Cars" Relationship="CarsInfoModel.FK_Car_Brand" FromRole="Brand" ToRole="Car" />
+        </EntityType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarId" />
+          </Key>
+          <Property Name="CarId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandId" Type="Int32" />
+          <Property Name="Model" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Costs" Type="Int32" />
+          <NavigationProperty Name="Brand" Relationship="CarsInfoModel.FK_Car_Brand" FromRole="Car" ToRole="Brand" />
+        </EntityType>
+        <Association Name="FK_Car_Brand">
+          <End Role="Brand" Type="CarsInfoModel.Brand" Multiplicity="0..1" />
+          <End Role="Car" Type="CarsInfoModel.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="BrandId" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarsInfoModelStoreContainer" CdmEntityContainer="CarsInfoEntities">
+          <EntitySetMapping Name="Brands"><EntityTypeMapping TypeName="CarsInfoModel.Brand"><MappingFragment StoreEntitySet="Brand">
+            <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+            <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Cars"><EntityTypeMapping TypeName="CarsInfoModel.Car"><MappingFragment StoreEntitySet="Car">
+            <ScalarProperty Name="CarId" ColumnName="CarId" />
+            <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+            <ScalarProperty Name="Model" ColumnName="Model" />
+            <ScalarProperty Name="Costs" ColumnName="Costs" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="CarBrandEntityModel">
+        <EntityTypeShape EntityType="CarsInfoModel.Brand" Width="1.5" PointX="0.75" PointY="1.125" Height="1.5956835937500002" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsInfoModel.Car" Width="1.5" PointX="3" PointY="0.875" Height="1.9802864583333335" IsExpanded="true" />
+        <AssociationConnector Association="CarsInfoModel.FK_Car_Brand" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.9228417968750002" />
+          <ConnectorPoint PointX="3" PointY="1.9228417968750002" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

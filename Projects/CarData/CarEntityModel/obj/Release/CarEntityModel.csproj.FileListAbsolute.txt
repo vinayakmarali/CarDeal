@@ -1,0 +1,6 @@
+C:\Users\Vinayak\Documents\Visual Studio 2010\Projects\CarData\CarEntityModel\bin\Release\CarEntityModel.dll.config
+C:\Users\Vinayak\Documents\Visual Studio 2010\Projects\CarData\CarEntityModel\bin\Release\CarEntityModel.dll
+C:\Users\Vinayak\Documents\Visual Studio 2010\Projects\CarData\CarEntityModel\bin\Release\CarEntityModel.pdb
+C:\Users\Vinayak\Documents\Visual Studio 2010\Projects\CarData\CarEntityModel\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Vinayak\Documents\Visual Studio 2010\Projects\CarData\CarEntityModel\obj\Release\CarEntityModel.dll
+C:\Users\Vinayak\Documents\Visual Studio 2010\Projects\CarData\CarEntityModel\obj\Release\CarEntityModel.pdb

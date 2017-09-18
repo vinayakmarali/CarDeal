@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarsInfoModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="CarsInfoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Brands" EntityType="CarsInfoModel.Brand" />
+    <EntitySet Name="Cars" EntityType="CarsInfoModel.Car" />
+    <AssociationSet Name="FK_Car_Brand" Association="CarsInfoModel.FK_Car_Brand">
+      <End Role="Brand" EntitySet="Brands" />
+      <End Role="Car" EntitySet="Cars" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="BrandId" />
+    </Key>
+    <Property Name="BrandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BrandName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Cars" Relationship="CarsInfoModel.FK_Car_Brand" FromRole="Brand" ToRole="Car" />
+  </EntityType>
+  <EntityType Name="Car">
+    <Key>
+      <PropertyRef Name="CarId" />
+    </Key>
+    <Property Name="CarId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BrandId" Type="Int32" />
+    <Property Name="Model" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Costs" Type="Int32" />
+    <NavigationProperty Name="Brand" Relationship="CarsInfoModel.FK_Car_Brand" FromRole="Car" ToRole="Brand" />
+  </EntityType>
+  <Association Name="FK_Car_Brand">
+    <End Role="Brand" Type="CarsInfoModel.Brand" Multiplicity="0..1" />
+    <End Role="Car" Type="CarsInfoModel.Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="BrandId" />
+      </Principal>
+      <Dependent Role="Car">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
